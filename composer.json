@@ -1,0 +1,21 @@
+{
+    "name": "admin/enquiries",
+    "description": "Enquiry management package for Laravel admin",
+    "type": "library",
+    "version": "1.0.0",  
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "admin\\enquiries\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "admin\\enquiries\\EnquiryServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
