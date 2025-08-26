@@ -19,7 +19,7 @@ class EnquiryServiceProvider extends ServiceProvider
             base_path('Modules/Enquiries/resources/views'), // Published module views first
             resource_path('views/admin/enquiry'), // Published views second
             __DIR__ . '/../resources/views'      // Package views as fallback
-        ], 'enquiry');
+        ], 'enquiries');
 
         $this->mergeConfigFrom(__DIR__ . '/../config/enquiry.php', 'enquiry.constants');
 
