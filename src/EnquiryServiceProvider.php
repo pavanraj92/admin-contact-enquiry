@@ -21,7 +21,13 @@ class EnquiryServiceProvider extends ServiceProvider
             __DIR__ . '/../resources/views'      // Package views as fallback
         ], 'enquiries');
 
-        $this->mergeConfigFrom(__DIR__ . '/../config/enquiry.php', 'enquiry.constants');
+        // Load published module config first (if it exists), then fallback to package config
+        if (file_exists(base_path('Modules/Enquiries/config/enquiry.php'))) {
+            $this->mergeConfigFrom(base_path('Modules/Enquiries/config/enquiry.php'), 'enquiry.constants');
+        } else {
+            // Fallback to package config if published config doesn't exist
+            $this->mergeConfigFrom(__DIR__ . '/../config/enquiry.php', 'enquiry.constants');
+        }
 
         // Also register module views with a specific namespace for explicit usage
         if (is_dir(base_path('Modules/Enquiries/resources/views'))) {
@@ -39,6 +45,7 @@ class EnquiryServiceProvider extends ServiceProvider
 
         // Standard publishing for non-PHP files
         $this->publishes([
+            __DIR__ . '/../config/' => base_path('Modules/Enquiries/config/'),
             __DIR__ . '/../database/migrations' => base_path('Modules/Enquiries/database/migrations'),
             __DIR__ . '/../resources/views' => base_path('Modules/Enquiries/resources/views/'),
         ], 'enquiry');
