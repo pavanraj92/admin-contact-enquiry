@@ -2,13 +2,12 @@
 
 namespace admin\enquiries\Emails;
 
-use admin\emails\Models\Email;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Schema;
 use admin\enquiries\Models\Enquiry;
-
+use Illuminate\Support\Facades\DB;
 
 class EnquiryReplyByAdminMail extends Mailable
 {
@@ -32,11 +31,11 @@ class EnquiryReplyByAdminMail extends Mailable
         $emailTemplate = null;
         // Check if email templates are stored in DB
         if (Schema::hasTable('emails')) {
-            $emailTemplate = Email::whereSlug('enquiry_email')->first(['subject', 'description']);
+            $emailTemplate = DB::table('emails')->whereSlug('enquiry_email')->first(['subject', 'description']);
 
             // If not found, create default template
             if (!$emailTemplate && Schema::hasTable('emails')) {
-                $emailTemplate = Email::create([
+                $emailTemplate = DB::table('emails')->insertGetId([
                     'title' => 'Enquiry Email',
                     'slug' => 'enquiry_email',
                     'subject' => 'Enquiry Reply from %APP_NAME%',

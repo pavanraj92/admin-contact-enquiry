@@ -19,6 +19,7 @@ class CheckModuleStatusCommand extends Command
             'Controller' => base_path('Modules/Enquiries/app/Http/Controllers/Admin/EnquiryManagerController.php'),
             'Model' => base_path('Modules/Enquiries/app/Models/Enquiry.php'),
             'Request (Update)' => base_path('Modules/Enquiries/app/Http/Requests/UpdateEnquiryRequest.php'),
+            'Emails' => base_path('Modules/Enquiries/app/Emails/EnquiryReplyByAdminMail.php'),
             'Routes' => base_path('Modules/Enquiries/routes/web.php'),
             'Views' => base_path('Modules/Enquiries/resources/views'),
             'Config' => base_path('Modules/Enquiries/config/enquiry.php'),

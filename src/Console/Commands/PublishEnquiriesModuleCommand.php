@@ -50,6 +50,9 @@ class PublishEnquiriesModuleCommand extends Command
             // Requests
             $basePath . '/Requests/UpdateEnquiryRequest.php' => base_path('Modules/Enquiries/app/Http/Requests/UpdateEnquiryRequest.php'),
 
+            // Emails
+            $basePath . '/Emails/EnquiryReplyByAdminMail.php' => base_path('Modules/Enquiries/app/Emails/EnquiryReplyByAdminMail.php'),
+
             // Routes
             $basePath . '/routes/web.php' => base_path('Modules/Enquiries/routes/web.php'),
         ];
@@ -77,11 +80,13 @@ class PublishEnquiriesModuleCommand extends Command
             'namespace admin\\enquiries\\Controllers;' => 'namespace Modules\\Enquiries\\app\\Http\\Controllers\\Admin;',
             'namespace admin\\enquiries\\Models;' => 'namespace Modules\\Enquiries\\app\\Models;',
             'namespace admin\\enquiries\\Requests;' => 'namespace Modules\\Enquiries\\app\\Http\\Requests;',
+            'namespace admin\\enquiries\\Emails;' => 'namespace Modules\\Enquiries\\app\\Emails;',
 
             // Use statements transformations
             'use admin\\enquiries\\Controllers\\' => 'use Modules\\Enquiries\\app\\Http\\Controllers\\Admin\\',
             'use admin\\enquiries\\Models\\' => 'use Modules\\Enquiries\\app\\Models\\',
             'use admin\\enquiries\\Requests\\' => 'use Modules\\Enquiries\\app\\Http\\Requests\\',
+            'use admin\\enquiries\\Emails\\' => 'use Modules\\Enquiries\\app\\Emails\\',
 
             // Class references in routes
             'admin\\enquiries\\Controllers\\EnquiryManagerController' => 'Modules\\Enquiries\\app\\Http\\Controllers\\Admin\\EnquiryManagerController',
@@ -96,6 +101,17 @@ class PublishEnquiriesModuleCommand extends Command
         if (str_contains($sourceFile, 'Controllers')) {
             $content = str_replace('use admin\\enquiries\\Models\\Enquiry;', 'use Modules\\Enquiries\\app\\Models\\Enquiry;', $content);
             $content = str_replace('use admin\\enquiries\\Requests\\UpdateEnquiryRequest;', 'use Modules\\Enquiries\\app\\Http\\Requests\\UpdateEnquiryRequest;', $content);
+            $content = str_replace(
+                'use admin\\enquiries\\Emails\\EnquiryReplyByAdminMail;',
+                'use Modules\\Enquiries\\app\\Emails\\EnquiryReplyByAdminMail;',
+                $content
+            );
+        } elseif (str_contains($sourceFile, 'Models')) {
+            $content = str_replace(
+                'use admin\\admin_auth\\Models\\Admin;',
+                'use Modules\\AdminAuth\\app\\Models\\Admin;',
+                $content
+            );
         }
 
         return $content;
