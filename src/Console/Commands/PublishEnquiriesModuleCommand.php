@@ -106,6 +106,12 @@ class PublishEnquiriesModuleCommand extends Command
                 'use Modules\\Enquiries\\app\\Emails\\EnquiryReplyByAdminMail;',
                 $content
             );
+        } elseif (str_contains($sourceFile, 'Models')) {
+            $content = str_replace(
+                'use admin\\admin_auth\\Models\\Admin;',
+                'use Modules\\AdminAuth\\app\\Models\\Admin;',
+                $content
+            );
         }
 
         return $content;

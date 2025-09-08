@@ -199,6 +199,11 @@ class EnquiryServiceProvider extends ServiceProvider
     protected function transformModelNamespaces($content)
     {
         // Any model-specific transformations
+        $content = str_replace(
+            'use admin\\admin_auth\\Models\\Admin;',
+            'use Modules\\AdminAuth\\app\\Models\\Admin;',
+            $content
+        );
         return $content;
     }
 
